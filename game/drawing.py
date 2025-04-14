@@ -1,5 +1,6 @@
 import pygame
 from variables import *
+import engine
 
 def color_tile(row, col, color):
     tile = pygame.Rect(tile_size * col, tile_size * (7 - row), tile_size, tile_size)
@@ -7,7 +8,7 @@ def color_tile(row, col, color):
 
 def draw_piece(piece):
     # https://stackoverflow.com/questions/8873219/how-can-i-draw-images-and-sprites-in-pygame
-    img_key = player_hash[piece.owner] + '_' + piece.piece
+    img_key = piece.color + '_' + piece.piece
     image_surface = images[img_key]
     # the data is represented correctly in the arrays
     # but I'm a noob at flipping the canvas
@@ -16,7 +17,6 @@ def draw_piece(piece):
     x = ((tile_size - piece_size)// 2) + (col * piece_size) + ((tile_size - piece_size) * col)
     y = ((tile_size - piece_size)// 2) + (row * piece_size) + ((tile_size - piece_size) * row)
     screen.blit(image_surface, (x, y))
-    return
 
 def draw_board():
     # first draw tiles
@@ -36,13 +36,11 @@ def draw_board():
     else:
         color_tile(7, 0, turn_color)
     # highlight desired tiles
-    if DESIRE == None:
-        pass
-    else:
-        color_tile(DESIRE[0], DESIRE[1], colors['desire'])
+    picked = engine.get_picked()
+    if picked:
+        color_tile(picked.position[0], picked.position[1], colors['desire'])
     # then draw pieces
-    for piece in FOO.pieces:
-        draw_piece(piece)
-    for piece in BAR.pieces:
-        draw_piece(piece)
-
+    players = engine.get_players()
+    for player in players:
+        for piece in player.pieces:
+            draw_piece(piece)

@@ -1,7 +1,5 @@
 import pygame
-from data import *
-
-
+from structures import *
 
 # 8 tiles x 8 tiles
 # each tile is 64x64 pixels
@@ -13,18 +11,6 @@ FPS = 10
 FFF = (255, 255, 255)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-
-generation = {
-    'pawn_row': {
-        'white': 1,
-        'black': 6
-    },
-    'special_row': {
-        'white': 0,
-        'black': 7
-    },
-    'order': ['rook', 'knight', 'bishop', 'queen', 'king', 'bishop', 'knight', 'rook']
-}
 
 player_hash = {
     'foo': 'white',
@@ -43,6 +29,3 @@ piece_position_list = []
 
 FOO = Player('foo', 'white')
 BAR = Player('bar', 'black')
-PLAYERS = [FOO, BAR]
-TURN = PLAYERS[0]
-DESIRE = None
