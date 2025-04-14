@@ -1,8 +1,23 @@
 import pygame
+from variables import *
 
 def color_tile(row, col, color):
     tile = pygame.Rect(tile_size * col, tile_size * (7 - row), tile_size, tile_size)
     pygame.draw.rect(screen, color, tile)
+
+def draw_piece(piece):
+    # https://stackoverflow.com/questions/8873219/how-can-i-draw-images-and-sprites-in-pygame
+    img_key = player_hash[piece.owner] + '_' + piece.piece
+    image_surface = images[img_key]
+    # the data is represented correctly in the arrays
+    # but I'm a noob at flipping the canvas
+    row = (7 - piece.position[0]) # 8 - row because of canvas being top-down
+    col = piece.position[1]
+    x = ((tile_size - piece_size)// 2) + (col * piece_size) + ((tile_size - piece_size) * col)
+    y = ((tile_size - piece_size)// 2) + (row * piece_size) + ((tile_size - piece_size) * row)
+    screen.blit(image_surface, (x, y))
+    return
+
 def draw_board():
     # first draw tiles
     flop_colors = [colors['white'], colors['black']]
@@ -30,3 +45,4 @@ def draw_board():
         draw_piece(piece)
     for piece in BAR.pieces:
         draw_piece(piece)
+

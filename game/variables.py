@@ -1,3 +1,8 @@
+import pygame
+from data import *
+
+
+
 # 8 tiles x 8 tiles
 # each tile is 64x64 pixels
 tile_size = 64
@@ -6,6 +11,8 @@ HEIGHT = tile_size * 8
 WIDTH = tile_size * 8
 FPS = 10
 FFF = (255, 255, 255)
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 generation = {
     'pawn_row': {
@@ -33,3 +40,9 @@ colors = {
 }
 
 piece_position_list = []
+
+FOO = Player('foo', 'white')
+BAR = Player('bar', 'black')
+PLAYERS = [FOO, BAR]
+TURN = PLAYERS[0]
+DESIRE = None
